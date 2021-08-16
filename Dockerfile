@@ -1,21 +1,18 @@
 # Learn something new everyday
 
-FROM debian:stretch
-MAINTAINER e42
+FROM ghcr.io/debian:stretch
+
+LABEL org.opencontainers.image.source "https://github.com/i814u2/udi-polyglot-v2-docker"
+LABEL org.opencontainers.image.description "Debian base, polyglot v2 docker image"
 
 # 80 = HTTP, 443 = HTTPS, 3000 = Express server(dev), 4200 = Angular2 (dev)
 EXPOSE 3000
 
 RUN apt-get update && apt-get -y dist-upgrade
-RUN apt-get -qqy install git python3-pip python3-dev python2.7-dev python-pip wget
+RUN apt-get -qqy install git python3-pip python3-dev python2.7-dev python-pip wget && apt-get clean
 
-RUN mkdir -p /opt/udi-polyglotv2/
-WORKDIR /opt/udi-polyglotv2/
-#RUN wget -q https://github.com/Einstein42/udi-polyglotv2/raw/master/binaries/polyglot-v2-linux-x64.tar.gz
-RUN wget -q https://s3.amazonaws.com/polyglotv2/binaries/polyglot-v2-linux-x64.tar.gz
-RUN tar -zxf /opt/udi-polyglotv2/polyglot-v2-linux-x64.tar.gz
-
+COPY startup.sh ~/startup.sh
 VOLUME /opt/udi-polyglotv2
 
 # Run Polyglot
-CMD /opt/udi-polyglotv2/polyglot-v2-linux-x64
+CMD ~/startup.sh
