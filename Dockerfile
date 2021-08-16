@@ -11,7 +11,7 @@ EXPOSE 3000
 RUN apt-get update && apt-get -y dist-upgrade
 RUN apt-get -qqy install git python3-pip python3-dev python2.7-dev python-pip wget && apt-get clean
 
-COPY startup.sh ~/startup.sh
+COPY ./startup.sh ~/startup.sh
 VOLUME /opt/udi-polyglotv2
 
 # Run Polyglot
