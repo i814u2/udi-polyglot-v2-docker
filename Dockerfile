@@ -1,6 +1,6 @@
 # Learn something new everyday
 
-FROM ghcr.io/debian:stretch
+FROM debian:stretch
 
 LABEL org.opencontainers.image.source "https://github.com/i814u2/udi-polyglot-v2-docker"
 LABEL org.opencontainers.image.description "Debian base, polyglot v2 docker image"
