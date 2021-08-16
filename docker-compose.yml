@@ -1,0 +1,37 @@
+version: '2'
+services:
+    mongo:
+        image: "mongo:latest"
+        container_name: "mongodb"
+        expose:
+         - "27017"
+        restart: always
+        volumes:
+         - /blackhole/docker/mongodb/data:/data/db
+        networks:
+          default:
+            ipv4_address: 192.168.2.3
+    polyglot:
+        stdin_open: true
+        tty: true
+        build: .
+        container_name: polyglotv2
+        ports:
+         - "3000:3000"
+        links:
+         - mongo
+        depends_on:
+         - mongo
+        environment:
+         - PYTHON=/usr/bin/python
+         - PYTHON3=/usr/bin/python3
+         - NODE_ENV=development
+         - USEDOCKER=true
+        restart: always
+        networks:
+          default:
+            ipv4_address: 192.168.2.5
+networks:
+  default:
+    external:
+      name: thecompound
